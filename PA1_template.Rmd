@@ -5,7 +5,7 @@ Assignment1 by Mandeep Paik
 
 ####1. Calculate the total number of steps taken per day
 
-```{r}
+```{r, echo = TRUE}
 library("plyr")
 library("dplyr")
 library("ggplot2")
@@ -22,7 +22,7 @@ df <- activity %>%
 
 #### 2. Make a histogram of the total number of steps taken each day
 
-```{r}
+```{r, echo = TRUE}
 barplot(df$steps, names = df$date,
         xlab = "Date", ylab = "sum (steps)",
         main = "Total number of steps taken each day",
@@ -35,7 +35,7 @@ barplot(df$steps, names = df$date,
 
 #### Calculate and report the mean and median of the total number of steps taken per day
 
-```{r}
+```{r, echo = TRUE}
 meansteps <- mean(df$steps)
 mediansteps <- median(df$steps)
 cat("Mean number of steps: ", meansteps, "Median number for steps:", mediansteps)
@@ -47,7 +47,7 @@ cat("Mean number of steps: ", meansteps, "Median number for steps:", mediansteps
 
 #### 1. Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 
-```{r}
+```{r, echo = TRUE}
 
 interval.mean <- as.numeric(tapply(activity$steps, activity$interval, mean, na.rm = TRUE))
 intervals <- data.frame(intervals = as.numeric(levels(activity$interval)), interval.mean)
@@ -63,7 +63,7 @@ axis(side = 1, at = labels.at, labels = labels)
 
 #### 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
-```{r}
+```{r, echo = TRUE}
 intervals.sorted <- intervals[order(intervals$interval.mean, decreasing = TRUE), ]
 ans <- intervals.sorted$intervals[[1]]
 ans
@@ -73,7 +73,7 @@ ans
 
 ### Imputing missing values
 #### 1. Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)
-```{r}
+```{r, echo = TRUE}
 numOfNARows <- sum(is.na(activity$steps))
 numOfNARows
 ```
@@ -83,7 +83,7 @@ numOfNARows
 The "NA" cells in steps will be populated with the average number of steps in the 5 minute interval
 
 #### 3. Create a new dataset that is equal to the original dataset but with the missing data filled in
-```{r}
+```{r, echo = TRUE}
 data_filled <- activity
 nas <- is.na(data_filled$steps)
 avg_interval <- tapply(data_filled$steps, data_filled$interval, mean, na.rm=TRUE, simplify=TRUE)
@@ -98,7 +98,7 @@ sum(is.na(data_filled$steps))
 
 #### 4. Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
 
-```{r}
+```{r, echo = TRUE}
 steps_filled <- data_filled %>%
   filter(!is.na(steps)) %>%
   group_by(date) %>%
@@ -112,7 +112,7 @@ ggplot(steps_filled, aes(x = steps)) +
 
 The mean and median of the steps now with the filled in values
 
-```{r}
+```{r, echo = TRUE}
 mean_steps_filled <- mean(steps_filled$steps)
 median_steps_filled <- median(steps_filled$steps)
 mean_steps_filled
@@ -128,7 +128,7 @@ By filling in the missing values with average number of steps in the 5 minute in
 
 A column 'weektype' is a factor variable created via mutate() from the dlpyr package. This column shall indicate whether the date is a "weekday"" or "weekend".
 
-```{r}
+```{r, echo = TRUE}
 data_filled <- mutate(data_filled, weektype = ifelse(
   weekdays(data_filled$date) == "Saturday" | weekdays(data_filled$date) == "Sunday", "weekend", "weekday"))
 data_filled$weektype <- as.factor(data_filled$weektype)
@@ -137,7 +137,7 @@ head(data_filled, 10)
 
 #### 2. Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).
 
-```{r}
+```{r, echo = TRUE}
 
 interval_filled <- data_filled %>%
   group_by(interval, weektype) %>%

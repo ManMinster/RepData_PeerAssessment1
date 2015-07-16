@@ -20,8 +20,20 @@ df <- activity %>%
 ```
 
 ```
-##    steps
-## 1 570608
+## Source: local data frame [53 x 2]
+## 
+##          date steps
+## 1  2012-10-02   126
+## 2  2012-10-03 11352
+## 3  2012-10-04 12116
+## 4  2012-10-05 13294
+## 5  2012-10-06 15420
+## 6  2012-10-07 11015
+## 7  2012-10-09 12811
+## 8  2012-10-10  9900
+## 9  2012-10-11 10304
+## 10 2012-10-12 17382
+## ..        ...   ...
 ```
 
 
@@ -30,13 +42,7 @@ df <- activity %>%
 
 
 ```r
-barplot(df$steps, names = df$date,
-        xlab = "Date", ylab = "sum (steps)",
-        main = "Total number of steps taken each day",
-        log = "y",
-        las=3,
-        width = 10
-        )
+hist(df$steps, breaks = 20, main = "Total number of steps taken each day", ylab = "Frequency", xlab = "Number of steps")
 ```
 
 ![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png) 
@@ -52,7 +58,7 @@ cat("Mean number of steps: ", meansteps, "Median number for steps:", mediansteps
 ```
 
 ```
-## Mean number of steps:  570608 Median number for steps: 570608
+## Mean number of steps:  10766.19 Median number for steps: 10765
 ```
 
 
@@ -70,7 +76,7 @@ intervals <- intervals[order(intervals$intervals), ]
 labels <- c("00:00", "05:00", "10:00", "15:00", "20:00")
 labels.at <- seq(0, 2000, 500)
 
-plot(intervals$intervals, intervals$interval.mean, type = "l", main = "Average steps 5-minute interval", ylab = "Average steps", xlab = "Time of day", xaxt = "n")
+plot(intervals$intervals, intervals$interval.mean, type = "l", main = "Average steps 5-minute interval", ylab = "Average number of steps", xlab = "Time of day", xaxt = "n")
 axis(side = 1, at = labels.at, labels = labels)
 ```
 
@@ -139,8 +145,20 @@ steps_filled <- data_filled %>%
 ```
 
 ```
-##      steps
-## 1 656737.5
+## Source: local data frame [61 x 2]
+## 
+##          date    steps
+## 1  2012-10-01 10766.19
+## 2  2012-10-02   126.00
+## 3  2012-10-03 11352.00
+## 4  2012-10-04 12116.00
+## 5  2012-10-05 13294.00
+## 6  2012-10-06 15420.00
+## 7  2012-10-07 11015.00
+## 8  2012-10-08 10766.19
+## 9  2012-10-09 12811.00
+## 10 2012-10-10  9900.00
+## ..        ...      ...
 ```
 
 ```r
@@ -161,7 +179,7 @@ mean_steps_filled
 ```
 
 ```
-## [1] 656737.5
+## [1] 10766.19
 ```
 
 ```r
@@ -169,7 +187,7 @@ median_steps_filled
 ```
 
 ```
-## [1] 656737.5
+## [1] 10766.19
 ```
 
 By filling in the missing values with average number of steps in the 5 minute interval, the median and mean are exactly the same.
@@ -217,6 +235,4 @@ panel_plot <- ggplot(interval_filled, aes(x=interval, y=steps, color = weektype,
 print(panel_plot)
 ```
 
-```
-## Error in layout_base(data, vars, drop = drop): At least one layer must contain all variables used for facetting
-```
+![plot of chunk unnamed-chunk-12](figure/unnamed-chunk-12-1.png) 

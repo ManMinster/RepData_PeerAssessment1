@@ -11,6 +11,7 @@ library("plyr")
 library("dplyr")
 library("ggplot2")
 library("tidyr")
+library("knitr")
 activity <- read.csv("activity.csv", header = TRUE, sep = ",", colClasses = c("integer", "Date", "factor"))
 df <- activity %>%
   filter(!is.na(steps)) %>%
@@ -42,7 +43,7 @@ df <- activity %>%
 
 
 ```r
-hist(df$steps, breaks = 20, main = "Total number of steps taken each day", ylab = "Frequency", xlab = "Number of steps")
+hist(df$steps, breaks = 10, main = "Total number of steps taken each day", ylab = "Frequency", xlab = "Number of steps")
 ```
 
 ![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png) 

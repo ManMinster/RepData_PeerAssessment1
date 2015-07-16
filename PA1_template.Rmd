@@ -10,6 +10,7 @@ library("plyr")
 library("dplyr")
 library("ggplot2")
 library("tidyr")
+library("knitr")
 activity <- read.csv("activity.csv", header = TRUE, sep = ",", colClasses = c("integer", "Date", "factor"))
 df <- activity %>%
   filter(!is.na(steps)) %>%
@@ -23,7 +24,7 @@ df <- activity %>%
 #### 2. Make a histogram of the total number of steps taken each day
 
 ```{r, echo = TRUE}
-hist(df$steps, breaks = 20, main = "Total number of steps taken each day", ylab = "Frequency", xlab = "Number of steps")
+hist(df$steps, breaks = 10, main = "Total number of steps taken each day", ylab = "Frequency", xlab = "Number of steps")
 ```
 
 
